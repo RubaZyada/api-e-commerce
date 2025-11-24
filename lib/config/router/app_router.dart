@@ -1,6 +1,6 @@
 import 'package:api_ecommerce_app/config/router/router_transitions.dart';
 import 'package:api_ecommerce_app/config/router/routes.dart';
-import 'package:api_ecommerce_app/features/auth/modules/login/login_screen.dart';
+import 'package:api_ecommerce_app/features/auth/modules/log_in/login_screen.dart';
 import 'package:api_ecommerce_app/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
