@@ -38,6 +38,7 @@ dependencies:
   retrofit: ^4.9.1
   flutter_bloc: 
   retrofit_generator: ^10.0.1
+  build_runner: ^2.10.4
 
 
 dev_dependencies:

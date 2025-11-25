@@ -27,7 +27,7 @@ class CustomTextField extends StatelessWidget {
           child: TextField(
             controller: controller,
             obscureText: isPassword,
-            
+            onTapOutside: (event) => FocusScope.of(context).unfocus(),
             style: const TextStyle(color: Colors.black87),
             decoration: InputDecoration(
               labelText: labelText,

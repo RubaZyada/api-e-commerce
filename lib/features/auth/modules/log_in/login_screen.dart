@@ -11,8 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-   final TextEditingController passwordController=TextEditingController();
-   final TextEditingController emailController=TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +26,59 @@ class _LoginScreenState extends State<LoginScreen> {
               top_header(),
               const SizedBox(height: 40),
               // EMAIL TEXT FIELD
-              CustomTextField(labelText: 'Email', hintText: 'dfewqwef@gmail.com', controller: emailController),
+              CustomTextField(
+                labelText: 'Email',
+                hintText: 'dfewqwef@gmail.com',
+                controller: emailController,
+              ),
               const SizedBox(height: 20),
               // PASSWORD TEXT FIELD
               PasswordTextField(controller: passwordController),
-              const SizedBox(height: 30),
-              // LOGIN BUTTON
-              AppElevatedButton(onPressed: () {  }, title: 'Log in'),
 
+              // REMEMBER ME AND FORGOT PASSWORD
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: true,
+                      onChanged: (val) {},
+                      activeColor: Colors.blue,
+                    ),
+                    const Text("Remember Me", style: TextStyle(fontSize: 11)),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        "Forgot Password",
+                        style: TextStyle(color: Colors.red, fontSize: 11),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              // LOGIN BUTTON
+              AppElevatedButton(onPressed: () {}, title: 'Log in'),
+              const SizedBox(height: 20),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don’t have an account? "),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 20),
             ],
           ),
@@ -60,7 +105,6 @@ Widget top_header() {
     ),
     child: Column(
       children: [
-        
         const SizedBox(height: 50),
         const Text(
           "Hello, Welcome Back 👋",
