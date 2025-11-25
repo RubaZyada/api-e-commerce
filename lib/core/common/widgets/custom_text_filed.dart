@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField ({
+   CustomTextField ({
     super.key,
     required this.labelText,
     required this.hintText,
     required this.controller,
      this.isPassword =false,
     this.errortext, this.suffixIcon,
+    this.validator,
 
   });
   final String labelText;
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword ;
   final String? errortext;
   final Widget? suffixIcon;
+  String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,8 @@ class CustomTextField extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: TextField(
+          child: TextFormField(
+            validator:validator,
             controller: controller,
             obscureText: isPassword,
             onTapOutside: (event) => FocusScope.of(context).unfocus(),

@@ -14,6 +14,15 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter your password';
+        } else if (value.length < 6) {
+          return 'Password must be at least 6 characters long';
+        }
+        return null;
+        
+      },
       labelText: 'Password',
       hintText: '********',
       controller: widget.controller,
