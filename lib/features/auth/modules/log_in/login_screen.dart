@@ -1,5 +1,5 @@
 import 'package:api_ecommerce_app/core/di.dart';
-import 'package:api_ecommerce_app/features/auth/modules/log_in/cubit/cubit/login_cubit.dart';
+import 'package:api_ecommerce_app/features/auth/modules/log_in/cubit/login_cubit.dart';
 import 'package:api_ecommerce_app/features/auth/modules/log_in/widgets/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
