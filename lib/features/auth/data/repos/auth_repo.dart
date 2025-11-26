@@ -8,9 +8,8 @@ class AuthRepo {
   AuthRepo({required this.service});
   Future<ApiResult<LoginResponse>> login(LoginRequestBody body) async {
     try {
-      final response = await service.login(
-        body: LoginRequestBody(email: "", password: ""),
-      );
+   final response = await service.login(body: body);
+    
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.error(e);

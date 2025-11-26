@@ -61,14 +61,14 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 20),
           // LOGIN BUTTON
           AppElevatedButton(onPressed: () {
-            if (formKey.currentState!.validate()) {
+           // if (formKey.currentState!.validate()) {
               context.read<LoginCubit>().login(
                  LoginRequestBody(
                    email: emailController.text,
                    password: passwordController.text,
                  )
                 );
-            }
+          //  }
             
             
           }, title: 'Log in'),

@@ -20,15 +20,17 @@ class DioFactory {
         compact: true,
         maxWidth: 90,
         enabled: kDebugMode,
-        filter: (options, args) {
-          // don't print requests with uris containing '/posts'
-          if (options.path.contains('/posts')) {
-            return false;
-          }
-          // don't print responses with unit8 list data
-          return !args.isResponse || !args.hasUint8ListData;
-        },
+        logPrint: (msg) => print(msg),
+        // filter: (options, args) {
+        //   // don't print requests with uris containing '/posts'
+        //   if (options.path.contains('/posts')) {
+        //     return false;
+        //   }
+        //   // don't print responses with unit8 list data
+        //   return !args.isResponse || !args.hasUint8ListData;
+        // },
       ),
     );
+    print(_dio.interceptors);
   }
 }
