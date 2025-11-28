@@ -21,16 +21,13 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           return 'Password must be at least 6 characters long';
         }
         return null;
-        
       },
       labelText: 'Password',
       hintText: '********',
       controller: widget.controller,
       isPassword: !isPasswordVisible,
       suffixIcon: IconButton(
-        icon: Icon(
-          isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-        ),
+        icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
         onPressed: () {
           setState(() {
             isPasswordVisible = !isPasswordVisible;

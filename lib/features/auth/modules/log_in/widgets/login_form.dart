@@ -3,6 +3,7 @@ import 'package:api_ecommerce_app/core/common/widgets/custom_text_filed.dart';
 import 'package:api_ecommerce_app/features/auth/data/models/login_request_body.dart';
 import 'package:api_ecommerce_app/features/auth/modules/common/password_text_field.dart';
 import 'package:api_ecommerce_app/features/auth/modules/log_in/cubit/login_cubit.dart';
+import 'package:api_ecommerce_app/features/auth/modules/log_in/widgets/login_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,7 +36,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           // PASSWORD TEXT FIELD
-          PasswordTextField(controller: passwordController , ),
+          PasswordTextField(controller: passwordController),
           // REMEMBER ME AND FORGOT PASSWORD
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -60,18 +61,24 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           // LOGIN BUTTON
-          AppElevatedButton(onPressed: () {
-           // if (formKey.currentState!.validate()) {
-              context.read<LoginCubit>().login(
-                 LoginRequestBody(
-                   email: emailController.text,
-                   password: passwordController.text,
-                 )
-                );
-          //  }
-            
-            
-          }, title: 'Log in'),
+          BlocBuilder<LoginCubit, LoginState>(
+            builder: (context, state) {
+              return AppElevatedButton(
+                isLoading: state is LoginLoading,
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    context.read<LoginCubit>().login(
+                      LoginRequestBody(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      ),
+                    );
+                  }
+                },
+                title: 'Log in',
+              );
+            },
+          ),
           const SizedBox(height: 20),
           Center(
             child: Row(
@@ -91,6 +98,7 @@ class LoginForm extends StatelessWidget {
               ],
             ),
           ),
+          LoginBlocListener()
         ],
       ),
     );

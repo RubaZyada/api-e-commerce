@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class ApiErrorFactory {
    static ApiErrorModel get defaultError => ApiErrorModel(
-        errorMessage: "An unexpected error occurred.",
+        errorMessage: "Something went wrong",
         statuscode: LocalStatusCodes.defaultError,
         icon: Icons.error,
+         errors: ["Error Occured!"]
       );
 }

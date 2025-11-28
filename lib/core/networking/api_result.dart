@@ -13,7 +13,7 @@ class ApiResult<T> {
     if (this is ApiSuccess<T>) {
       return onSuccess((this as ApiSuccess<T>).data);
     } else {
-      return onError(ApiErrorHandler.handleError((this as ApiError).error));
+      return onError(ApiErrorHandler.handle((this as ApiError).error));
     }
   }
 }

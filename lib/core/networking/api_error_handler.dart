@@ -1,4 +1,3 @@
-
 import 'package:api_ecommerce_app/core/networking/api_error_factory.dart';
 import 'package:api_ecommerce_app/core/networking/api_error_model.dart';
 import 'package:api_ecommerce_app/core/networking/dio_extention_exceptio_type.dart';
@@ -7,71 +6,80 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ApiErrorHandler {
-  static ApiErrorModel handleError(dynamic e) {
-   
-    if (e is DioException) {
-      return e.when(
-        connectionError: () {
-          return ApiErrorModel(
-            errorMessage: "No internet connection.",
-            statuscode: LocalStatusCodes.connectionError,
-            icon: Icons.wifi_off,
-          );
-        },
-        connectionTimeout: () {
-          return ApiErrorModel(
-            errorMessage: "Connection timeout.",
-            statuscode: LocalStatusCodes.connectionTimeout,
-            icon: Icons.timer_off,
-          );
-        },
-        sendTimeout: () {
-          return ApiErrorModel(
-            errorMessage: "Send timeout.",
-            statuscode: LocalStatusCodes.sendTimeout,
-            icon: Icons.upload,
-          );
-        },
-        receiveTimeout: () {
-          return ApiErrorModel(
-            errorMessage: "Receive timeout.",
-            statuscode: LocalStatusCodes.receiveTimeout,
-            icon: Icons.download,
-          );
-        },
-        badCertificate: () {
-          return ApiErrorModel(
-            errorMessage: "Bad certificate.",
-            statuscode: LocalStatusCodes.badCertificate,
-            icon: Icons.security,
-          );
-        },
-        badResponse: () {
-          final code = e.response?.statusCode ?? LocalStatusCodes.badResponse;
-          return ApiErrorModel(
+  static ApiErrorModel handle(dynamic e) {
+    if (e is Exception) {
+      if (e is DioException) {
+        return e.when(
+          connectionError: () => ApiErrorModel(
             errorMessage:
-                "Server returned an unexpected response. Please try again.",
-            statuscode: code,
-            icon: Icons.warning,
-          );
-        },
-        cancel: () {
-          return ApiErrorModel(
-            errorMessage: "Request cancelled.",
-            statuscode: LocalStatusCodes.cancel,
+                "No internet connection. Please check your Wi-Fi or mobile data.",
+            errors: [],
+            icon: Icons.wifi_off,
+            statuscode: LocalStatusCodes.connectionError,
+          ),
+          connectionTimeout: () => ApiErrorModel(
+            errorMessage:
+                "The connection took too long. Try checking your internet or try again later.",
+            icon: Icons.timer_off,
+            statuscode: LocalStatusCodes.connectionTimeout,
+            errors: [],
+          ),
+          sendTimeout: () => ApiErrorModel(
+            errorMessage:
+                "Request timed out while sending data. Please try again.",
+            icon: Icons.send,
+            statuscode: LocalStatusCodes.sendTimeout,
+            errors: [],
+          ),
+          receiveTimeout: () => ApiErrorModel(
+            errorMessage:
+                "Server took too long to respond. Please try again later.",
+            icon: Icons.downloading,
+            statuscode: LocalStatusCodes.receiveTimeout,
+            errors: [],
+          ),
+          badCertificate: () => ApiErrorModel(
+            errorMessage:
+                "Security issue detected with the server. Connection not secure.",
+            icon: Icons.security,
+            statuscode: LocalStatusCodes.badCertificate,
+            errors: [],
+          ),
+          badResponse: () {
+            final allErrors =
+                e.response?.data["errors"] as Map<String, dynamic>?;
+            final errorsList = <String>[];
+            if (allErrors != null) {
+              allErrors.forEach((key, value) {
+                for (var e in (value as List)) {
+                  final String singleErrMessage = "$key: $e";
+                  errorsList.add(singleErrMessage);
+                }
+              });
+            }
+            return ApiErrorModel(
+              statuscode: e.response?.statusCode ?? LocalStatusCodes.badResponse,
+              errorMessage: e.response?.data["message"],
+              errors: errorsList,
+              icon: Icons.error,
+            );
+          },
+          cancel: () => ApiErrorModel(
+            errorMessage: "The request was cancelled. Please try again.",
             icon: Icons.cancel,
-          );
-        },
-        unknown: () {
-          return ApiErrorModel(
-            errorMessage: "Unexpected error occurred.",
+            statuscode: LocalStatusCodes.cancel,
+            errors: [],
+          ),
+          unknown: () => ApiErrorModel(
+            errorMessage:
+                "Something went wrong. Please check your connection and try again.",
+            icon: Icons.error_outline,
             statuscode: LocalStatusCodes.unknown,
-            icon: Icons.error,
-          );
-        },
-      );
-    } 
-    
+            errors: [],
+          ),
+        );
+      }
+    }
     return ApiErrorFactory.defaultError;
   }
 }
