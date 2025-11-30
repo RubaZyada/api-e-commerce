@@ -1,14 +1,12 @@
-
 import 'package:flutter/material.dart';
 
 class ApiErrorModel {
-  final String errorMessage;
-  final int statuscode;
+  final String? errorMessage;
+  final int? statuscode;
   final IconData icon;
-    final List<String> errors;
-  
+  final List<String> errors;
 
-  ApiErrorModel( {
+  ApiErrorModel({
     required this.errorMessage,
     required this.statuscode,
     required this.icon,

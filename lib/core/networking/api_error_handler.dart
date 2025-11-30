@@ -58,7 +58,7 @@ class ApiErrorHandler {
               });
             }
             return ApiErrorModel(
-              statuscode: e.response?.statusCode ?? LocalStatusCodes.badResponse,
+              statuscode:e.response?.statusCode,
               errorMessage: e.response?.data["message"],
               errors: errorsList,
               icon: Icons.error,

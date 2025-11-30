@@ -1,3 +1,5 @@
+import 'package:api_ecommerce_app/config/cache/cache_constants.dart';
+import 'package:api_ecommerce_app/config/cache/cache_helper.dart';
 import 'package:api_ecommerce_app/core/networking/api_result.dart';
 import 'package:api_ecommerce_app/features/auth/data/models/login_request_body.dart';
 import 'package:api_ecommerce_app/features/auth/data/models/login_response.dart';
@@ -9,7 +11,14 @@ class AuthRepo {
   Future<ApiResult<LoginResponse>> login(LoginRequestBody body) async {
     try {
    final response = await service.login(body: body);
-    
+       await CacheHelper.setSecureData(
+        key: CacheConstants.accessToken,
+        value: response.accessToken,
+      );
+      await CacheHelper.setSecureData(
+        key: CacheConstants.refreshToken,
+        value: response.refreshToken,
+      );
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.error(e);
