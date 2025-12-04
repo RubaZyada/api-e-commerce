@@ -3,15 +3,16 @@ import 'package:api_ecommerce_app/config/cache/cache_helper.dart';
 import 'package:api_ecommerce_app/config/router/app_router.dart';
 import 'package:api_ecommerce_app/config/router/routes.dart';
 import 'package:api_ecommerce_app/core/di.dart';
-//import 'package:api_ecommerce_app/generated/l10n.dart';
+import 'package:api_ecommerce_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 
-//import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   setupDependencyInjection();
   WidgetsFlutterBinding.ensureInitialized();
+  // call function have obj of SharedPreferences
   CacheHelper.init();
   final String? accessToken = await CacheHelper.getSecureData(
     key: CacheConstants.accessToken,
@@ -25,15 +26,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // localizationsDelegates: [
-      //   S.delegate,
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      // ],
-      // supportedLocales: S.delegate.supportedLocales,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
-      initialRoute: RoutesName.login,
+      initialRoute: RoutesName.register,
       onGenerateRoute: AppRouter().onGenerateRoute,
     );
   }

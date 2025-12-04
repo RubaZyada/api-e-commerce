@@ -1,6 +1,15 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/*
+استخدام shared prefrence
+تخزين قيم بسيطة وصغيرة:
+token
+userId
+themeMode
+language
+flags (isLoggedIn)
+*/ 
 class CacheHelper {
   static late SharedPreferences _prefs;
   static const _storage = FlutterSecureStorage();
@@ -8,7 +17,7 @@ class CacheHelper {
   static init() async {
     _prefs = await SharedPreferences.getInstance();
   }
-
+ 
   static Future<void> set({
     required String key,
     required dynamic value,
